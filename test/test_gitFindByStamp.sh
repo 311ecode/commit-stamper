@@ -3,18 +3,18 @@
 test_gitFindByStamp() {
   echo "🧪 Testing git-find-by-stamp (Discovery)"
   local tmp_base=$(mktemp -d)
-  
+
   # 1. Setup Repo A and stamp a commit
   mkdir -p "$tmp_base/repoA" && cd "$tmp_base/repoA" && git init -q
   git config user.email "t@test.com" && git config user.name "Tester"
-  echo "data" > a.txt && git add . && git commit -m "original work" -q
-  
-  git-stamp-commit > /dev/null
+  echo "data" >a.txt && git add . && git commit -m "original work" -q
+
+  git-stamp-commit >/dev/null
   local stamp=$(git log -1 --pretty=%B | grep "uuid-stamp:" | cut -d' ' -f2)
 
   # 2. Setup Repo B (Unrelated)
   mkdir -p "$tmp_base/repoB" && cd "$tmp_base/repoB" && git init -q
-  echo "other" > b.txt && git add . && git commit -m "unrelated work" -q
+  echo "other" >b.txt && git add . && git commit -m "unrelated work" -q
 
   # 3. Execute Search
   local output

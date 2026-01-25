@@ -4,7 +4,7 @@ git-cherry-pick-stamp() {
   local commit_hash=""
 
   for arg in "$@"; do
-    if [[ "$arg" == "--reverse" ]]; then reverse=1; else commit_hash="$arg"; fi
+    if [[ $arg == "--reverse" ]]; then reverse=1; else commit_hash="$arg"; fi
   done
 
   if [[ -z $commit_hash ]]; then

@@ -7,12 +7,12 @@ test_gitStampBulkReverse() {
   git config user.email "test@stamp.com" && git config user.name "Tester"
 
   for i in {1..3}; do
-    echo "$i" > "f$i.txt" && git add . && git commit -m "commit $i" -q
+    echo "$i" >"f$i.txt" && git add . && git commit -m "commit $i" -q
   done
 
   # Stamp all
   git-stamp-all-commits >/dev/null 2>&1
-  
+
   # Strip all
   git-stamp-all-commits --reverse >/dev/null 2>&1
 

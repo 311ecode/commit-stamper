@@ -7,6 +7,6 @@ git-stamp-commit() {
   fi
 
   local reverse=0
-  [[ "$1" == "--reverse" ]] && reverse=1
+  [[ $1 == "--reverse" ]] && reverse=1
   _git_stamp_commit_core "$reverse"
 }

@@ -8,7 +8,7 @@ test_gitStampCommit_idempotency() {
   git config user.email "test@stamp.com"
   git config user.name "Stamper"
 
-  echo "content" > file.txt
+  echo "content" >file.txt
   git add . && git commit -m "stable commit" -q
 
   # First stamp

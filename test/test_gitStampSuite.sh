@@ -2,7 +2,7 @@
 
 test_gitStampSuite() {
   echo "🚀 Initializing Git Stamp Universal Test Suite"
-  
+
   local test_functions=(
     "test_gitStampCommit_single"
     "test_gitStampCommit_bulk"
@@ -17,11 +17,11 @@ test_gitStampSuite() {
     "test_gitFindByStamp"
     "test_gitStampTransplantIntegration"
   )
-  
+
   local ignored_tests=(
     "test_gitStampUniversalParity"
   )
-  
+
   # bashTestRunner is a globally available utility per system requirements
   bashTestRunner test_functions ignored_tests
 }

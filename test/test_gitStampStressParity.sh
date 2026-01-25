@@ -10,8 +10,8 @@ test_gitStampStressParity() {
   git config user.name "StressTester"
 
   # Create two simple commits with clean messages
-  echo "1" > f.txt && git add . && git commit -q -m "feat: first"
-  echo "2" > f.txt && git add . && git commit -q -m "feat: second"
+  echo "1" >f.txt && git add . && git commit -q -m "feat: first"
+  echo "2" >f.txt && git add . && git commit -q -m "feat: second"
 
   local original_head=$(git rev-parse HEAD)
   echo "📍 Original HEAD: $original_head"
@@ -36,7 +36,7 @@ test_gitStampStressParity() {
   echo "📍 Final HEAD: $final_head"
 
   # Quick hash check (will almost always fail, but log for visibility)
-  if [[ "$original_head" == "$final_head" ]]; then
+  if [[ $original_head == "$final_head" ]]; then
     echo "🎉 Rare success: Exact hash preserved!"
   else
     echo "ℹ️  Note: Hash changed (expected when message is modified)"
@@ -44,16 +44,24 @@ test_gitStampStressParity() {
 
   # Real check: compare original vs final commit objects (excluding timestamps)
   local orig_raw
-  orig_raw=$(git cat-file -p "$original_head" 2>/dev/null) || { echo "❌ Original commit missing"; rm -rf "$tmp_repo"; return 1; }
+  orig_raw=$(git cat-file -p "$original_head" 2>/dev/null) || {
+    echo "❌ Original commit missing"
+    rm -rf "$tmp_repo"
+    return 1
+  }
 
   local final_raw
-  final_raw=$(git cat-file -p "$final_head" 2>/dev/null) || { echo "❌ Final commit missing"; rm -rf "$tmp_repo"; return 1; }
+  final_raw=$(git cat-file -p "$final_head" 2>/dev/null) || {
+    echo "❌ Final commit missing"
+    rm -rf "$tmp_repo"
+    return 1
+  }
 
   # Normalize timestamps (they often differ slightly) and compare
   local orig_normalized=$(echo "$orig_raw" | grep -vE '^(author|committer) ' | sort)
   local final_normalized=$(echo "$final_raw" | grep -vE '^(author|committer) ' | sort)
 
-  if [[ "$orig_normalized" == "$final_normalized" ]]; then
+  if [[ $orig_normalized == "$final_normalized" ]]; then
     echo "✅ SUCCESS: Commit content matches after round-trip (message restored, tree/parents preserved)"
     rm -rf "$tmp_repo"
     return 0

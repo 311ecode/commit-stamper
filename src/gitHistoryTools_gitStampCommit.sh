@@ -2,12 +2,12 @@
 
 _git_stamp_all_commits_core() {
   local reverse=0
-  [[ "$1" == "1" || "$1" == "--reverse" ]] && reverse=1
+  [[ $1 == "1" || $1 == "--reverse" ]] && reverse=1
 
   if ! command -v git-filter-repo >/dev/null 2>&1; then
-      echo "❌ ERROR: git-filter-repo is required for bulk operations."
-      echo "   Install it via: pip install --user git-filter-repo"
-      return 1
+    echo "❌ ERROR: git-filter-repo is required for bulk operations."
+    echo "   Install it via: pip install --user git-filter-repo"
+    return 1
   fi
 
   if [[ $reverse -eq 1 ]]; then

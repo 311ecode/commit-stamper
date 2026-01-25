@@ -8,12 +8,12 @@ test_gitStamp_reverse_single() {
   git config user.email "test@stamp.com"
   git config user.name "Stamper"
 
-  echo "content" > file.txt && git add . && git commit -m "work" -q
+  echo "content" >file.txt && git add . && git commit -m "work" -q
   git-stamp-commit >/dev/null
-  
+
   # Strip it
   git-stamp-commit --reverse >/dev/null
-  
+
   local msg=$(git log -1 --pretty=%B)
   rm -rf "$tmp_repo"
 

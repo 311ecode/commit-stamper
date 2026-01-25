@@ -2,7 +2,7 @@
 
 git-cherry-pick-stamp() {
   local commit_hash="$1"
-  
+
   if [[ -z $commit_hash ]]; then
     echo "Usage: git-cherry-pick-stamp <commit-hash>" >&2
     return 1
